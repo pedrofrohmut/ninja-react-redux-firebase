@@ -1,0 +1,27 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  background: #e9eef3;
+  color: #3a3f44;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 35px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+p {
+  text-align: justify;
+}
+
+a {
+  color: #3a3f44;
+  text-decoration: none;
+}
