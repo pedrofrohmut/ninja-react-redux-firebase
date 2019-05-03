@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
+import { createProjectAction } from "../../store/actionCreators/projectActions"
 
 class CreateProject extends Component {
   constructor(props) {
@@ -38,7 +40,8 @@ class CreateProject extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state)
+    const { title, content } = this.state
+    this.props.onCreateProject({ title, content })
   }
 
   handleInputChange(e) {
@@ -48,4 +51,13 @@ class CreateProject extends Component {
   }
 }
 
-export default CreateProject
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCreateProject: (project) => dispatch(createProjectAction(project))
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CreateProject)
