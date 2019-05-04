@@ -5,11 +5,16 @@ import { connect } from "react-redux"
 import { firestoreConnect } from "react-redux-firebase"
 // Used to combine more than one HOC function
 import { compose } from "redux"
+import { Redirect } from "react-router-dom"
 
 const ProjectDetails = (props) => {
   const id = props.match.params.id
-  const { project } = props
-  // console.log(props)
+  const { project, isUserSignedIn } = props
+
+  if (!isUserSignedIn) {
+    return <Redirect to="/signin" />
+  }
+
   return (
     <div className="ProjectDetail section container">
       {project ? (
@@ -34,11 +39,10 @@ const ProjectDetails = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id
   const projects = state.firestore.data.projects
-  // const projects2 = state.firestore.ordered.projects
-  // console.log("ID:", id, "Projects:", projects, "Ordered:", projects2)
   const project = projects ? projects[id] : null
   return {
-    project
+    project,
+    isUserSignedIn: !state.firebase.auth.isEmpty
   }
 }
 

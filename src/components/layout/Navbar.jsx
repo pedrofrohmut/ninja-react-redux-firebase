@@ -3,26 +3,40 @@ import { Link } from "react-router-dom"
 import SignedInLinks from "./SignedInLinks"
 import SignedOutLinks from "./SignedOutLinks"
 import { connect } from "react-redux"
+import { getActionSignOutUser } from "../../store/actionCreators/authActions"
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const { onSignOut, isUserSignedIn } = props
   return (
     <nav className="Navbar nav-wrapper grey darken-3">
       <div className="container">
         <Link to="/" className="brand-logo">Mario Plan</Link>
-        <SignedInLinks />
-        <SignedOutLinks />
+        {isUserSignedIn ? (
+          <SignedInLinks onSignOut={ onSignOut }/>
+        ) : (
+          <SignedOutLinks />
+        )} 
       </div>
     </nav>
   )
 }
 
-const mapStateToProps = (state) =>   {
-  console.log(state)
-  return {
+// ######################################################################################################
 
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    isUserSignedIn: !state.firebase.auth.isEmpty
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignOut: () => dispatch(getActionSignOutUser())
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Navbar)

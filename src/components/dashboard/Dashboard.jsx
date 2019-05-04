@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import ProjectList from "../projects/ProjectList"
 import Notifications from "./Notifications"
 // Function the makes a component connected to the redux store
@@ -7,33 +7,32 @@ import { connect } from "react-redux"
 import { compose } from "redux"
 // connects this component to the firestore
 import { firestoreConnect } from "react-redux-firebase"
+import { Redirect } from "react-router-dom"
 
-class Dashboard extends Component {
-  render() {
-    const { projects } = this.props
-    return (
-      <div className="Dashboard container">
-        <div className="row">
-          <div className="col s12 m8">
-            <ProjectList projects={ projects } />
-          </div>
-          <div className="col s12 m3 offset-m1">
-            <Notifications />
-          </div>
+const Dashboard = (props) => {
+  const { projects, isUserSignedIn } = props
+  if (!isUserSignedIn) {
+    return <Redirect to="/signin" />
+  }
+  return (
+    <div className="Dashboard container">
+      <div className="row">
+        <div className="col s12 m8">
+          <ProjectList projects={ projects } />
+        </div>
+        <div className="col s12 m3 offset-m1">
+          <Notifications />
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.firestore.ordered.projects
+    projects: state.firestore.ordered.projects,
+    isUserSignedIn: !state.firebase.auth.isEmpty
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {}
 }
 
 // connect => HOC to connect to redux store
