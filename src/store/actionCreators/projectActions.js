@@ -1,4 +1,3 @@
-import uuidv4 from "uuid/v4"
 /**
  *   You can not make async calls in the reducers. The reducers must remain pure function
  * without any outside influence. The async calls must be made before the reducer being called
@@ -11,13 +10,19 @@ export const createProjectAction = (project) => {
     // Make async call to database
     // Activates the callback from redux-firestore the returns a reference to our firestore database
     const firestore = getFirestore()
+
+    const state = getState()
+    const { firstName, lastName } = state.firebase.profile
+    const authorId = state.firebase.auth.uid
+    const { title, content } = project
     // Performs and insert into the database
     firestore.collection("projects").add({
-      ...project,
-      author_first_name: "John",
-      author_last_name: "Doe",
-      author_id: uuidv4(),
-      created_at: new Date()
+      authorFirstName: firstName,
+      authorId: authorId,
+      authorLastName: lastName,
+      content: content,
+      createdAt: new Date(),
+      title: title
     })
       .then(() => {
         dispatch({ type: "CREATE_PROJECT", project: project })

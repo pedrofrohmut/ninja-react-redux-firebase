@@ -51,6 +51,7 @@ class SignIn extends Component {
     e.preventDefault()
     const { email, password } = this.state
     this.props.onUserSignIn({ email, password })
+    this.props.history.push("/")
   }
 
   handleInputChange(e) {

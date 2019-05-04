@@ -7,8 +7,7 @@ import SignIn from "./auth/SignIn"
 import SignUp from "./auth/SignUp"
 import CreateProject from "./projects/CreateProject"
 
-const App = (props) => {
-  const { store } = props
+const App = () => {
   return (
     <BrowserRouter>
       <div className="App">

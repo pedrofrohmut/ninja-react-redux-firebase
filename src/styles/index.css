@@ -25,3 +25,7 @@ a {
   color: #3a3f44;
   text-decoration: none;
 }
+
+div.section {
+  padding: 3rem 0;
+}

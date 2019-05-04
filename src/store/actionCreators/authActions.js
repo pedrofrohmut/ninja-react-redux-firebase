@@ -40,7 +40,7 @@ export const getActionSignUpUser = (newUser) => {
     const firestore = getFirestore()
 
     const { firstName, lastName } = newUser
-    const initials = firstName[0] + lastName[0]
+    const initials = (firstName[0] + lastName[0]).toUpperCase()
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)

@@ -19,10 +19,18 @@ const store = createStore(
       getFirestore
     })),
     reduxFirestore(firebaseConfig),
-    reactReduxFirebase(firebaseConfig, { attachAuthIsReady: true })
+    reactReduxFirebase(
+      firebaseConfig, 
+      { 
+        useFirestoreForProfile: true, 
+        userProfile: "users",
+        attachAuthIsReady: true 
+      }
+    )
   )
 )
 
+// Makes the DOM redering wait for the Firebase Auth to be ready
 store
   .firebaseAuthIsReady
   .then(() => {

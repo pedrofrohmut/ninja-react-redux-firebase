@@ -49,6 +49,7 @@ class CreateProject extends Component {
     e.preventDefault()
     const { title, content } = this.state
     this.props.onCreateProject({ title, content })
+    this.props.history.push("/")
   }
 
   handleInputChange(e) {

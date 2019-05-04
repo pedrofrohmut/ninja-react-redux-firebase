@@ -66,6 +66,7 @@ class SignUp extends Component {
       firstName, lastName, email, password
     }
     this.props.onSignUpUser(newUser)
+    this.props.history.push("/")
   }
 
   handleInputChange(e) {
